@@ -1,30 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: solar-system-deployment
   labels:
     app: solar-system
+  name: solar-system
 spec:
-  replicas: 10
+  replicas: 3
   selector:
     matchLabels:
       app: solar-system
+  strategy: {}
   template:
     metadata:
       labels:
         app: solar-system
     spec:
       containers:
-        - name: solar-system
-          image: nginx:1.31.0-alpine
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: 500m
-              memory: 256Mi
+      - image: siddharth67/solar-system:v9
+        name: solar-system
+        imagePullPolicy: Always
+        ports: 
+        - containerPort: 80
